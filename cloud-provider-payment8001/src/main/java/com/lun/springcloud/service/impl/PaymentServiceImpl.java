@@ -10,7 +10,7 @@ import javax.annotation.Resource;
 @Service
 public class PaymentServiceImpl implements PaymentService {
 
-    @Resource
+    @Resource//java自带的 Autowire spring的
     private PaymentDao paymentDao;
 
     @Override

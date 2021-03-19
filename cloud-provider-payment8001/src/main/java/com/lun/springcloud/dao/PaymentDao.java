@@ -4,7 +4,7 @@ import com.lun.springcloud.entities.Payment;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-
+//Repository插入有可能有问题
 @Mapper
 public interface PaymentDao {
 

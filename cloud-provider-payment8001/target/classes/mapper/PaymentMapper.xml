@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+    mapper映射dao接口
+    parameterType:实体类
+    keyProperty:组件
+    useGeneratedKeys:返回
+    resultMap:结果集
+    resultType:结果类型
+    column:数据库的
+    property:idea的
+
+-->
 <mapper namespace="com.lun.springcloud.dao.PaymentDao">
     <insert id="create" parameterType="Payment" useGeneratedKeys="true"
             keyProperty="id">
