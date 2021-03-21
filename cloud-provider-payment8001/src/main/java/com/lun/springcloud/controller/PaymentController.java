@@ -28,56 +28,65 @@ public class PaymentController {
     private DiscoveryClient discoveryClient;
 
     @PostMapping("/payment/creat")
-    public CommonResult create(@RequestBody Payment payment){
+    public CommonResult create(@RequestBody Payment payment) {
         int result = paymentService.create(payment);
-        log.info("结果"+result);
+        log.info("结果" + result);
 
-        if (result > 0){
-            return new CommonResult(200,"插入成功serverPort"+serverPort,result);
-        }else {
-            return new CommonResult(444,"插入失败",null);
+        if (result > 0) {
+            return new CommonResult(200, "插入成功serverPort" + serverPort, result);
+        } else {
+            return new CommonResult(444, "插入失败", null);
         }
     }
 
     @GetMapping("/payment/get/{id}")
-    public CommonResult getPaymentById(@PathVariable("id") Long id){
+    public CommonResult getPaymentById(@PathVariable("id") Long id) {
         Payment payment = paymentService.getPaymentById(id);
-        log.info("结果"+payment);
+        log.info("结果" + payment);
 
-        if (payment != null){
-            return new CommonResult(200,"查询成功serverPort"+serverPort,payment);
-        }else {
-            return new CommonResult(444,"查询失败"+id,null);
+        if (payment != null) {
+            return new CommonResult(200, "查询成功serverPort" + serverPort, payment);
+        } else {
+            return new CommonResult(444, "查询失败" + id, null);
         }
     }
 
 
     @GetMapping(value = "/payment/discovery")
-    public Object discovery(){
+    public Object discovery() {
         List<String> services = discoveryClient.getServices();
-        for (String s: services
-             ) {
+        for (String s : services
+        ) {
             log.info(s);
         }
 
         List<ServiceInstance> instances = discoveryClient.getInstances("CLOUD-PAYMENT-SERVICE");
-        for (ServiceInstance a: instances
-             ) {
-            log.info(a.getInstanceId()+"         "+a.getHost()+a.getPort()+a.getUri());
+        for (ServiceInstance a : instances
+        ) {
+            log.info(a.getInstanceId() + "         " + a.getHost() + a.getPort() + a.getUri());
         }
 
         return this.discoveryClient;
     }
+
     @GetMapping(value = "/payment/lb")
     public String getPaymentLB() {
         return serverPort;
     }
 
     @GetMapping(value = "/payment/timeout")
-    public String paymentTimeout(){
+    public String paymentTimeout() {
         //暂停几面线程
-        try{ TimeUnit.SECONDS.sleep(3); }catch (InterruptedException e){ e.printStackTrace(); }
+        try {
+            TimeUnit.SECONDS.sleep(3);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         return serverPort;
     }
 
+    @GetMapping(value = "/payment/zipkin")
+    public String paymentZipkin() {
+        return "我想死";
+    }
 }
